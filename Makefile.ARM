@@ -1,0 +1,308 @@
+
+############################################################################
+#
+#   Makefile for building : App_KaiXin_Arm.TMK3
+#   Created by TMK3_V2.3, please do not modify.
+#
+#############################################################################
+
+USE_IMAGEKIT=1
+USE_MTAPI=1
+
+TO_PROJECT_ROOT = ../../PRJ_TG3
+OUTPUT_FILENAME = libApp_KaiXin.so
+
+include $(TO_PROJECT_ROOT)/MakeInclude/Makefile_Base_DynamicLib.ARM
+include $(TO_PROJECT_ROOT)/MakeInclude/Makefile_TOPS_Def.ARM
+
+DEFINES += -D__TCOM_SUPPORT__
+INCLUDE_PATH += -I. -I./Res \
+               -I./ -I./Util -I./KaiXinAPI -I./Res \
+               -I../ -I../Util -I../KaiXinAPI -I../Res \
+               -I../../PRJ_TG3/Include -I../../PRJ_TG3/Include/MTAPI -I../../PRJ_TG3/Include/ThirdParty \
+               -I../../PRJ_TG3/Include/TCOM -I../../PRJ_TG3/TG3/Include -I../../PRJ_TG3/TG3/TG3_Implement \
+               -I../../PRJ_TG3/EOS_SYS -I../../PRJ_TG3/Common/SoftSupport \
+               -I../../PRJ_TG3/Common/ICU/Include -I../../PRJ_TG3/Include/ThirdParty/curl
+LIBS += -lcurl \
+       -lTG3_ControlsEx
+
+OBJECTS_DIR = ./Debug-ARM
+DESTDIR = $(TO_PROJECT_ROOT)/$(BIN_OUTPUT_DIR)
+TARGET = $(DESTDIR)/$(OUTPUT_FILENAME)
+
+DEL_FILE = rm -f
+MKDIR = mkdir -p
+
+first: all
+
+OBJECTS = \
+	$(OBJECTS_DIR)/App_KaiXinApp.o \
+	$(OBJECTS_DIR)/App_KaiXinEntry.o \
+	$(OBJECTS_DIR)/App_KaiXinInitForm.o \
+	$(OBJECTS_DIR)/App_KaiXinMainForm.o \
+	$(OBJECTS_DIR)/App_KaiXinTcomRegist.o \
+	$(OBJECTS_DIR)/TestForm.o \
+	$(OBJECTS_DIR)/TG3AppDllEntry.o \
+	$(OBJECTS_DIR)/TWebForm.o \
+	$(OBJECTS_DIR)/KaiXinAPI.o \
+	$(OBJECTS_DIR)/KaiXinAPI_AboutForm.o \
+	$(OBJECTS_DIR)/KaiXinAPI_AlbumList.o \
+	$(OBJECTS_DIR)/KaiXinAPI_AlbumPhoto.o \
+	$(OBJECTS_DIR)/KaiXinAPI_ApplicationList.o \
+	$(OBJECTS_DIR)/KaiXinAPI_BirthdayList.o \
+	$(OBJECTS_DIR)/KaiXinAPI_Comment.o \
+	$(OBJECTS_DIR)/KaiXinAPI_Comment_Detail.o \
+	$(OBJECTS_DIR)/KaiXinAPI_CommentDetail.o \
+	$(OBJECTS_DIR)/KaiXinAPI_DiaryDetail.o \
+	$(OBJECTS_DIR)/KaiXinAPI_DiaryList.o \
+	$(OBJECTS_DIR)/KaiXinAPI_Edit.o \
+	$(OBJECTS_DIR)/KaiXinAPI_FriendList.o \
+	$(OBJECTS_DIR)/KaiXinAPI_GardenDetail.o \
+	$(OBJECTS_DIR)/KaiXinAPI_GardenList.o \
+	$(OBJECTS_DIR)/KaiXinAPI_GetProfileDetail.o \
+	$(OBJECTS_DIR)/KaiXinAPI_GetUserInfos.o \
+	$(OBJECTS_DIR)/KaiXinAPI_InitialLogin.o \
+	$(OBJECTS_DIR)/KaiXinAPI_ListView.o \
+	$(OBJECTS_DIR)/KaiXinAPI_MessageCenter.o \
+	$(OBJECTS_DIR)/KaiXinAPI_MessageDetail.o \
+	$(OBJECTS_DIR)/KaiXinAPI_MessagesList.o \
+	$(OBJECTS_DIR)/KaiXinAPI_More.o \
+	$(OBJECTS_DIR)/KaiXinAPI_Notice.o \
+	$(OBJECTS_DIR)/KaiXinAPI_OtherDetail.o \
+	$(OBJECTS_DIR)/KaiXinAPI_PhotoDetail.o \
+	$(OBJECTS_DIR)/KaiXinAPI_PokeList.o \
+	$(OBJECTS_DIR)/KaiXinAPI_Profile.o \
+	$(OBJECTS_DIR)/KaiXinAPI_RanchDetail.o \
+	$(OBJECTS_DIR)/KaiXinAPI_RanchList.o \
+	$(OBJECTS_DIR)/KaiXinAPI_RecentNews.o \
+	$(OBJECTS_DIR)/KaiXinAPI_RecordList.o \
+	$(OBJECTS_DIR)/KaiXinAPI_Repaste_Vote.o \
+	$(OBJECTS_DIR)/KaiXinAPI_RepasteDetail.o \
+	$(OBJECTS_DIR)/KaiXinAPI_RepasteIndex.o \
+	$(OBJECTS_DIR)/KaiXinAPI_SendBirthdayGift.o \
+	$(OBJECTS_DIR)/KaiXinAPI_SettingsForm.o \
+	$(OBJECTS_DIR)/KaiXinAPI_StatusFaceList.o \
+	$(OBJECTS_DIR)/KaiXinAPI_SystemMessages.o \
+	$(OBJECTS_DIR)/KaiXinAPI_UpdateFriendsNews.o \
+	$(OBJECTS_DIR)/KaiXinAPI_UserCommentList.o \
+	$(OBJECTS_DIR)/KaiXinAPI_UserInfoDetail.o \
+	$(OBJECTS_DIR)/KaiXinAPI_VoteDetail.o \
+	$(OBJECTS_DIR)/KaiXinAPI_WaitingBox.o \
+	$(OBJECTS_DIR)/KaiXinAPICommon.o \
+	$(OBJECTS_DIR)/TFeedBackForm.o \
+	$(OBJECTS_DIR)/cJSON.o \
+	$(OBJECTS_DIR)/cUnixTime.o \
+	$(OBJECTS_DIR)/gui_common.o \
+	$(OBJECTS_DIR)/md5c.o \
+	$(OBJECTS_DIR)/StrComm.o \
+	$(OBJECTS_DIR)/TDownload.o \
+	$(OBJECTS_DIR)/TFileDownloadMrg.o \
+	$(OBJECTS_DIR)/TGlobal.o \
+	$(OBJECTS_DIR)/TImgData.o
+
+ADD_OBJECTS += 
+
+$(OBJECTS_DIR) :
+	$(MKDIR) $(OBJECTS_DIR)
+
+$(DESTDIR) :
+	$(MKDIR) $(DESTDIR)
+
+all : $(OBJECTS_DIR) $(DESTDIR) $(TARGET)
+
+$(TARGET) : $(OBJECTS)
+	$(LINK) $(LINK_FLAGS) -o $(TARGET) $(SYS_OBJECTS) $(OBJECTS) $(ADD_OBJECTS) $(LIBS) $(SYS_LIBS)
+
+clean : 
+	-$(DEL_FILE) $(OBJECTS)
+	-$(DEL_FILE) $(TARGET)
+
+$(OBJECTS_DIR)/App_KaiXinApp.o : ./App_KaiXinApp.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/App_KaiXinApp.o ./App_KaiXinApp.cpp
+
+$(OBJECTS_DIR)/App_KaiXinEntry.o : ./App_KaiXinEntry.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/App_KaiXinEntry.o ./App_KaiXinEntry.cpp
+
+$(OBJECTS_DIR)/App_KaiXinInitForm.o : ./App_KaiXinInitForm.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/App_KaiXinInitForm.o ./App_KaiXinInitForm.cpp
+
+$(OBJECTS_DIR)/App_KaiXinMainForm.o : ./App_KaiXinMainForm.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/App_KaiXinMainForm.o ./App_KaiXinMainForm.cpp
+
+$(OBJECTS_DIR)/App_KaiXinTcomRegist.o : ./App_KaiXinTcomRegist.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/App_KaiXinTcomRegist.o ./App_KaiXinTcomRegist.cpp
+
+$(OBJECTS_DIR)/TestForm.o : ./TestForm.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/TestForm.o ./TestForm.cpp
+
+$(OBJECTS_DIR)/TG3AppDllEntry.o : ./TG3AppDllEntry.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/TG3AppDllEntry.o ./TG3AppDllEntry.cpp
+
+$(OBJECTS_DIR)/TWebForm.o : ./TWebForm.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/TWebForm.o ./TWebForm.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI.o : ./KaiXinAPI/KaiXinAPI.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI.o ./KaiXinAPI/KaiXinAPI.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_AboutForm.o : ./KaiXinAPI/KaiXinAPI_AboutForm.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_AboutForm.o ./KaiXinAPI/KaiXinAPI_AboutForm.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_AlbumList.o : ./KaiXinAPI/KaiXinAPI_AlbumList.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_AlbumList.o ./KaiXinAPI/KaiXinAPI_AlbumList.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_AlbumPhoto.o : ./KaiXinAPI/KaiXinAPI_AlbumPhoto.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_AlbumPhoto.o ./KaiXinAPI/KaiXinAPI_AlbumPhoto.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_ApplicationList.o : ./KaiXinAPI/KaiXinAPI_ApplicationList.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_ApplicationList.o ./KaiXinAPI/KaiXinAPI_ApplicationList.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_BirthdayList.o : ./KaiXinAPI/KaiXinAPI_BirthdayList.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_BirthdayList.o ./KaiXinAPI/KaiXinAPI_BirthdayList.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_Comment.o : ./KaiXinAPI/KaiXinAPI_Comment.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_Comment.o ./KaiXinAPI/KaiXinAPI_Comment.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_Comment_Detail.o : ./KaiXinAPI/KaiXinAPI_Comment_Detail.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_Comment_Detail.o ./KaiXinAPI/KaiXinAPI_Comment_Detail.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_CommentDetail.o : ./KaiXinAPI/KaiXinAPI_CommentDetail.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_CommentDetail.o ./KaiXinAPI/KaiXinAPI_CommentDetail.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_DiaryDetail.o : ./KaiXinAPI/KaiXinAPI_DiaryDetail.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_DiaryDetail.o ./KaiXinAPI/KaiXinAPI_DiaryDetail.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_DiaryList.o : ./KaiXinAPI/KaiXinAPI_DiaryList.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_DiaryList.o ./KaiXinAPI/KaiXinAPI_DiaryList.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_Edit.o : ./KaiXinAPI/KaiXinAPI_Edit.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_Edit.o ./KaiXinAPI/KaiXinAPI_Edit.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_FriendList.o : ./KaiXinAPI/KaiXinAPI_FriendList.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_FriendList.o ./KaiXinAPI/KaiXinAPI_FriendList.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_GardenDetail.o : ./KaiXinAPI/KaiXinAPI_GardenDetail.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_GardenDetail.o ./KaiXinAPI/KaiXinAPI_GardenDetail.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_GardenList.o : ./KaiXinAPI/KaiXinAPI_GardenList.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_GardenList.o ./KaiXinAPI/KaiXinAPI_GardenList.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_GetProfileDetail.o : ./KaiXinAPI/KaiXinAPI_GetProfileDetail.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_GetProfileDetail.o ./KaiXinAPI/KaiXinAPI_GetProfileDetail.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_GetUserInfos.o : ./KaiXinAPI/KaiXinAPI_GetUserInfos.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_GetUserInfos.o ./KaiXinAPI/KaiXinAPI_GetUserInfos.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_InitialLogin.o : ./KaiXinAPI/KaiXinAPI_InitialLogin.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_InitialLogin.o ./KaiXinAPI/KaiXinAPI_InitialLogin.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_ListView.o : ./KaiXinAPI/KaiXinAPI_ListView.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_ListView.o ./KaiXinAPI/KaiXinAPI_ListView.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_MessageCenter.o : ./KaiXinAPI/KaiXinAPI_MessageCenter.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_MessageCenter.o ./KaiXinAPI/KaiXinAPI_MessageCenter.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_MessageDetail.o : ./KaiXinAPI/KaiXinAPI_MessageDetail.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_MessageDetail.o ./KaiXinAPI/KaiXinAPI_MessageDetail.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_MessagesList.o : ./KaiXinAPI/KaiXinAPI_MessagesList.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_MessagesList.o ./KaiXinAPI/KaiXinAPI_MessagesList.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_More.o : ./KaiXinAPI/KaiXinAPI_More.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_More.o ./KaiXinAPI/KaiXinAPI_More.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_Notice.o : ./KaiXinAPI/KaiXinAPI_Notice.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_Notice.o ./KaiXinAPI/KaiXinAPI_Notice.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_OtherDetail.o : ./KaiXinAPI/KaiXinAPI_OtherDetail.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_OtherDetail.o ./KaiXinAPI/KaiXinAPI_OtherDetail.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_PhotoDetail.o : ./KaiXinAPI/KaiXinAPI_PhotoDetail.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_PhotoDetail.o ./KaiXinAPI/KaiXinAPI_PhotoDetail.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_PokeList.o : ./KaiXinAPI/KaiXinAPI_PokeList.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_PokeList.o ./KaiXinAPI/KaiXinAPI_PokeList.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_Profile.o : ./KaiXinAPI/KaiXinAPI_Profile.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_Profile.o ./KaiXinAPI/KaiXinAPI_Profile.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_RanchDetail.o : ./KaiXinAPI/KaiXinAPI_RanchDetail.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_RanchDetail.o ./KaiXinAPI/KaiXinAPI_RanchDetail.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_RanchList.o : ./KaiXinAPI/KaiXinAPI_RanchList.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_RanchList.o ./KaiXinAPI/KaiXinAPI_RanchList.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_RecentNews.o : ./KaiXinAPI/KaiXinAPI_RecentNews.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_RecentNews.o ./KaiXinAPI/KaiXinAPI_RecentNews.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_RecordList.o : ./KaiXinAPI/KaiXinAPI_RecordList.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_RecordList.o ./KaiXinAPI/KaiXinAPI_RecordList.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_Repaste_Vote.o : ./KaiXinAPI/KaiXinAPI_Repaste_Vote.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_Repaste_Vote.o ./KaiXinAPI/KaiXinAPI_Repaste_Vote.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_RepasteDetail.o : ./KaiXinAPI/KaiXinAPI_RepasteDetail.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_RepasteDetail.o ./KaiXinAPI/KaiXinAPI_RepasteDetail.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_RepasteIndex.o : ./KaiXinAPI/KaiXinAPI_RepasteIndex.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_RepasteIndex.o ./KaiXinAPI/KaiXinAPI_RepasteIndex.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_SendBirthdayGift.o : ./KaiXinAPI/KaiXinAPI_SendBirthdayGift.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_SendBirthdayGift.o ./KaiXinAPI/KaiXinAPI_SendBirthdayGift.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_SettingsForm.o : ./KaiXinAPI/KaiXinAPI_SettingsForm.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_SettingsForm.o ./KaiXinAPI/KaiXinAPI_SettingsForm.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_StatusFaceList.o : ./KaiXinAPI/KaiXinAPI_StatusFaceList.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_StatusFaceList.o ./KaiXinAPI/KaiXinAPI_StatusFaceList.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_SystemMessages.o : ./KaiXinAPI/KaiXinAPI_SystemMessages.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_SystemMessages.o ./KaiXinAPI/KaiXinAPI_SystemMessages.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_UpdateFriendsNews.o : ./KaiXinAPI/KaiXinAPI_UpdateFriendsNews.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_UpdateFriendsNews.o ./KaiXinAPI/KaiXinAPI_UpdateFriendsNews.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_UserCommentList.o : ./KaiXinAPI/KaiXinAPI_UserCommentList.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_UserCommentList.o ./KaiXinAPI/KaiXinAPI_UserCommentList.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_UserInfoDetail.o : ./KaiXinAPI/KaiXinAPI_UserInfoDetail.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_UserInfoDetail.o ./KaiXinAPI/KaiXinAPI_UserInfoDetail.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_VoteDetail.o : ./KaiXinAPI/KaiXinAPI_VoteDetail.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_VoteDetail.o ./KaiXinAPI/KaiXinAPI_VoteDetail.cpp
+
+$(OBJECTS_DIR)/KaiXinAPI_WaitingBox.o : ./KaiXinAPI/KaiXinAPI_WaitingBox.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPI_WaitingBox.o ./KaiXinAPI/KaiXinAPI_WaitingBox.cpp
+
+$(OBJECTS_DIR)/KaiXinAPICommon.o : ./KaiXinAPI/KaiXinAPICommon.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/KaiXinAPICommon.o ./KaiXinAPI/KaiXinAPICommon.cpp
+
+$(OBJECTS_DIR)/TFeedBackForm.o : ./KaiXinAPI/TFeedBackForm.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/TFeedBackForm.o ./KaiXinAPI/TFeedBackForm.cpp
+
+$(OBJECTS_DIR)/cJSON.o : ./Util/cJSON.c
+	$(CC) -c $(CC_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/cJSON.o ./Util/cJSON.c
+
+$(OBJECTS_DIR)/cUnixTime.o : ./Util/cUnixTime.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/cUnixTime.o ./Util/cUnixTime.cpp
+
+$(OBJECTS_DIR)/gui_common.o : ./Util/gui_common.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/gui_common.o ./Util/gui_common.cpp
+
+$(OBJECTS_DIR)/md5c.o : ./Util/md5c.c
+	$(CC) -c $(CC_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/md5c.o ./Util/md5c.c
+
+$(OBJECTS_DIR)/StrComm.o : ./Util/StrComm.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/StrComm.o ./Util/StrComm.cpp
+
+$(OBJECTS_DIR)/TDownload.o : ./Util/TDownload.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/TDownload.o ./Util/TDownload.cpp
+
+$(OBJECTS_DIR)/TFileDownloadMrg.o : ./Util/TFileDownloadMrg.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/TFileDownloadMrg.o ./Util/TFileDownloadMrg.cpp
+
+$(OBJECTS_DIR)/TGlobal.o : ./Util/TGlobal.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/TGlobal.o ./Util/TGlobal.cpp
+
+$(OBJECTS_DIR)/TImgData.o : ./Util/TImgData.cpp
+	$(CXX) -c $(CXX_FLAGS) $(INCLUDE_PATH) $(LAST_INCLUDE_PATH) -o $(OBJECTS_DIR)/TImgData.o ./Util/TImgData.cpp
+

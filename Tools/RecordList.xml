@@ -1,0 +1,16 @@
+<XMLRecordList>
+  <Root xmlns="..0.">
+    <ret xmlns="Short.ret.0.ret" />
+    <uid xmlns="Number.uid.0.uid" />
+    <n xmlns="Number.n.0.n" />
+    <total xmlns="Number.total.0.total" />
+    <recordlist xmlns="Array.recordlist.0.recordlist">
+      <rid xmlns="Number.rid.0.rid" />
+      <ctime xmlns="Number.ctime.0.ctime" />
+      <strctime xmlns="String.strctime.32.strctime" />
+      <content xmlns="UEString.content.288.content" />
+      <commentnum xmlns="Number.commentnum.0.commentnum" />
+      <upnum xmlns="Number.upnum.0.upnum" />
+    </recordlist>
+  </Root>
+</XMLRecordList>

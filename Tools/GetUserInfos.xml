@@ -1,0 +1,49 @@
+<XMLGetUserInfos>
+  <Root xmlns="..0.">
+    <ret xmlns="Short.ret.0.ret" />
+    <uid xmlns="String.uid.32.uid" />
+    <n xmlns="Short.n.0.n" />
+    <friends xmlns="Array.friends.0.friends">
+      <fuid xmlns="String.fuid.32.fuid" />
+      <fname xmlns="UEString.fname.32.fname" />
+      <gender xmlns="Short.gender.0.gender" />
+      <online xmlns="Short.online.0.online" />
+      <py xmlns="Array.py.0.py">
+        <py xmlns="String.py.32.py" />
+      </py>
+      <fpy xmlns="Array.fpy.0.fpy">
+        <fpy xmlns="String.fpy.8.fpy" />
+      </fpy>
+      <birthday xmlns="String.birthday.10.birthday" />
+      <birthdaynew xmlns="String.birthdaynew.10.birthdaynew" />
+      <stateid xmlns="Number.stateid.0.stateid" />
+      <state xmlns="UEString.state.1024.state" />
+      <statetime xmlns="Number.statetime.0.statetime" />
+      <flogo xmlns="UEString.flogo.128.flogo" />
+      <flogo90 xmlns="UEString.flogo90.128.flogo90" />
+      <city xmlns="UEString.city.64.city" />
+      <hometown xmlns="UEString.hometown.256.hometown" />
+      <interest xmlns="UEString.interest.1024.interest" />
+      <mobile xmlns="String.mobile.20.mobile" />
+      <tel xmlns="String.tel.64.tel" />
+      <qq xmlns="String.qq.20.qq" />
+      <msn xmlns="String.msn.128.msn" />
+      <address xmlns="String.address.1024.address" />
+      <zip xmlns="String.zip.20.zip" />
+      <email xmlns="String.email.128.email" />
+      <education xmlns="Array.education.0.education">
+        <school xmlns="UEString.school.128.school" />
+        <class xmlns="UEString.class.128.class" />
+        <year xmlns="Short.year.0.year" />
+      </education>
+      <career xmlns="Array.career.0.career">
+        <company xmlns="UEString.company.128.company" />
+        <dept xmlns="UEString.dept.128.dept" />
+        <beginyear xmlns="Short.beginyear.0.beginyear" />
+        <beginmonth xmlns="Short.beginmonth.0.beginmonth" />
+        <endyear xmlns="Short.endyear.0.endyear" />
+        <endmonth xmlns="Short.endmonth.0.endmonth" />
+      </career>
+    </friends>
+  </Root>
+</XMLGetUserInfos>
